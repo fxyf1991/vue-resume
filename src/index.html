@@ -29,10 +29,12 @@
             </ul>
         </div>
         <div class="down">
-            <button @click="onLogout">登出</button>
+            <!--!!用于转换变量为布尔值-->
+            <button @click="onLogout" v-show="!!currentUser.id">登出</button>
         </div>
     </aside>
     <main>
+        {{this.currentUser}}
         <div class="resume">
             <section class="profile">
                 <h1>
@@ -153,7 +155,8 @@
     <div v-show="signUpVisible" class="signUp" v-cloak>
         <form class="form" @submit.prevent="onSignUp">
             <h2>注册</h2>
-            <button type="button" @click="signUpVisible = false">关闭</button> //不加type="button"会默认type为submit
+            <!--不加type="button"会默认type为submit-->
+            <button type="button" @click="signUpVisible = false">关闭</button>
             <div class="row">
                 <label>邮箱</label>
                 <input type="text" v-model="signUp.email">
