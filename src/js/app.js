@@ -1,7 +1,8 @@
 let app = new Vue({
     el: '#app',
     data: {
-        editingName: 'true',
+        loginVisible: false,
+        signUpVisible: false,
         resume: {
             name: '李弢',
             jobTitle: '前端工程师',
@@ -15,10 +16,10 @@ let app = new Vue({
         onEdit(key, value) {
             this.resume[key] = value
         },
-        save() {
+        onClickSave() {
             let currentUser = AV.User.current();
             if (!currentUser) {
-                this.showLogin()
+                this.loginVisible = true
             } else {
                 this.saveResume()
             }
@@ -29,6 +30,6 @@ let app = new Vue({
             // }, function (error) {
             //     console.error(error);
             // });
-        }
+        },
     }
 });

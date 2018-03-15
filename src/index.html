@@ -7,6 +7,7 @@
     <link href="css/resume.css" rel="stylesheet"/>
     <link href="css/editable-span.css" rel="stylesheet"/>
     <link href="css/login.css" rel="stylesheet"/>
+    <link href="css/signUp.css" rel="stylesheet"/>
 </head>
 <body>
 <div class="page" id="app">
@@ -14,7 +15,7 @@
         <div class="upper">
             <ul class="actions">
                 <li>
-                    <button class="button" @click="onclickSave">保存</button>
+                    <button class="button" @click="onClickSave">保存</button>
                 </li>
                 <li>
                     <button class="button">分享</button>
@@ -128,8 +129,45 @@
             </section>
         </div>
     </main>
-    <div class="login">
-        登录
+    <div class="login" v-show="loginVisible">
+        <form action="" class="form">
+            <h2>登录</h2>
+            <div class="row">
+                <label>邮箱</label>
+                <input type="text">
+            </div>
+            <div class="row">
+                <label>密码</label>
+                <input type="text">
+            </div>
+            <div class="actions">
+                <button>
+                    提交
+                </button>
+                <a href="#" @click="signUpVisible=true;loginVisible=false">注册</a>
+            </div>
+            <button @click="loginVisible = false">关闭</button>
+        </form>
+    </div>
+    <div v-show="signUpVisible" class="signUp">
+        <form action="" class="form">
+            <h2>注册</h2>
+            <div class="row">
+                <label>邮箱</label>
+                <input type="text">
+            </div>
+            <div class="row">
+                <label>密码</label>
+                <input type="text">
+            </div>
+            <div class="actions">
+                <button>
+                    提交
+                </button>
+                <a href="#" @click="signUpVisible=false;loginVisible=true">注册</a>
+            </div>
+            <button @click="loginVisible = false">关闭</button>
+        </form>
     </div>
 </div>
 <script src="../vendors/av-min.js"></script>
