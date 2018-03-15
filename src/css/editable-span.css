@@ -1,0 +1,13 @@
+.editable-span{
+    position: relative;
+}
+.editable-span > button{
+    display: none;
+    position: absolute;
+    left: 100%;
+    top:0;
+    z-index: 1;
+}
+.editable-span:hover > button{
+    display: inline-block;
+}
