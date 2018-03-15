@@ -29,7 +29,7 @@
             </ul>
         </div>
         <div class="down">
-            <button>登出</button>
+            <button @click="onLogout">登出</button>
         </div>
     </aside>
     <main>
@@ -130,43 +130,45 @@
         </div>
     </main>
     <div class="login" v-show="loginVisible">
-        <form action="" class="form">
+        <form class="form" @submit.prevent="onLogin">
             <h2>登录</h2>
+            <button @click="loginVisible = false">关闭</button>
             <div class="row">
                 <label>邮箱</label>
-                <input type="text">
+                <input type="text" v-model="login.email">
             </div>
             <div class="row">
                 <label>密码</label>
-                <input type="text">
+                <input type="text" v-model="login.password">
             </div>
             <div class="actions">
-                <button>
+                <button type="submit">
                     提交
                 </button>
                 <a href="#" @click="signUpVisible=true;loginVisible=false">注册</a>
             </div>
-            <button @click="loginVisible = false">关闭</button>
+
         </form>
     </div>
     <div v-show="signUpVisible" class="signUp">
-        <form action="" class="form">
+        <form class="form" @submit.prevent="onSignUp">
             <h2>注册</h2>
+            <button @click="signUpVisible = false">关闭</button>
             <div class="row">
                 <label>邮箱</label>
-                <input type="text">
+                <input type="text" v-model="signUp.email">
             </div>
             <div class="row">
                 <label>密码</label>
-                <input type="text">
+                <input type="text" v-model="signUp.password">
             </div>
             <div class="actions">
-                <button>
+                <button type="submit">
                     提交
                 </button>
                 <a href="#" @click="signUpVisible=false;loginVisible=true">注册</a>
             </div>
-            <button @click="loginVisible = false">关闭</button>
+
         </form>
     </div>
 </div>
