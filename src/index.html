@@ -30,7 +30,7 @@
         </div>
         <div class="down">
             <!--!!用于转换变量为布尔值-->
-            <button @click="onLogout" v-show="!!currentUser.id">登出</button>
+            <button @click="onLogout" v-show="hasLogin()">登出</button>
         </div>
     </aside>
     <main>
@@ -169,7 +169,7 @@
                 <button type="submit">
                     提交
                 </button>
-                <a href="#" @click="signUpVisible=false;loginVisible=true">注册</a>
+                <a href="#" @click="signUpVisible=false;loginVisible=true">登录</a>
             </div>
 
         </form>
