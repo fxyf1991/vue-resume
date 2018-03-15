@@ -67,3 +67,6 @@ button {
     padding: 3px 10px;
 }
 
+div[v-cloak]{
+    display: none;
+}
