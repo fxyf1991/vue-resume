@@ -169,6 +169,9 @@ let app = new Vue({
         removeProject(index){
             this.resume.projects.splice(index,1)
         },
+        print(){
+            window.print()
+        }
     },
     watch:{
         'current.ObjectId': function (newValue, oldValue) {
