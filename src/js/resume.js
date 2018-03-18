@@ -13,6 +13,22 @@ Vue.component('resume',{
         removeProject(index){
             resume.projects.splice(index,1)
         },
+        onEdit(key, value) {
+            let regex = /\[(\d+)\]/g
+            key = key.replace(regex, (match,number)=>{
+                return `.${number}`
+            })
+            keys = key.split('.')
+            let result = this.resume
+            for(let i = 0; i < keys.length; i++){
+                if(i === keys.length-1){
+                    result[keys[i]] = value
+                }else {
+                    result = result[keys[i]]
+                }
+            }
+        },
+
     },
     template:`
             <div class="resume">

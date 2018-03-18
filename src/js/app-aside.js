@@ -5,7 +5,7 @@ Vue.component('app-aside',{
         <div class="upper">
             <ul class="actions">
                 <li>
-                    <button class="button" @click="$emit('clickSave')">保存</button>
+                    <button class="button" @click="$emit('save')">保存</button>
                 </li>
                 <li>
                     <button class="button" @click="$emit('share')">分享</button>
@@ -20,6 +20,7 @@ Vue.component('app-aside',{
         </div>
         <div class="down">
             <!--!!用于转换变量为布尔值-->
+            
             <button @click="$emit('logout')" v-show="logoutVisible">登出</button>
         </div>
     </aside>

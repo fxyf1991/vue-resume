@@ -1,77 +1,86 @@
-let app = new Vue({
-    el: '#app',
-    data: {
-        loginVisible: false,
-        signUpVisible: false,
-        shareVisible:false,
-        previewUser:{
-            objectId:''
-        },
-        previewResume:{
+window.App = {
+    template: `
+    <div>
+        <app-aside v-show="mode === 'edit'" :logout-visible="hasLogin()" @logout="onLogout" @save="onClickSave">
+        </app-aside>
+        <main>
+            <resume :mode="mode" :display-resume="displayResume" :resume="resume"></resume>
+        </main>
+        <button class="exitPreview" @click="mode = 'edit'" v-if="mode === 'preview'">退出预览</button>
+    </div>
+    `,
+    data(){
+        return {
+            loginVisible: false,
+            signUpVisible: false,
+            shareVisible:false,
+            previewUser:{
+                objectId:''
+            },
+            previewResume:{
 
-        },
-        currentUser: {
-            objectId:'',
-            email:''
-        },
-        resume: {
-            name: '李弢',
-            jobTitle: '前端工程师',
-            birthday: '1991年',
-            gender: '男',
-            email: 'fxyf1991@gmail.com',
-            phone: '18551629909',
-            skills:[
-                {
-                    name:'技能名称',
-                    description:'技能描述'
-                },
-                {
-                    name:'技能名称',
-                    description:'技能描述'
-                },
-                {
-                    name:'技能名称',
-                    description:'技能描述'
-                },
-                {
-                    name:'技能名称',
-                    description:'技能描述'
-                }
-            ],
-            projects:[
-                {
-                    name:'项目名称',
-                    link:'x.com',
-                    keywords:'关键字',
-                    description:'详细情况'
-                },
-                {
-                    name:'项目名称',
-                    link:'x.com',
-                    keywords:'关键字',
-                    description:'详细情况'
-                },
-                {
-                    name:'项目名称',
-                    link:'x.com',
-                    keywords:'关键字',
-                    description:'详细情况'
-                },
-                {
-                    name:'项目名称',
-                    link:'x.com',
-                    keywords:'关键字',
-                    description:'详细情况'
-                }
-            ]
-        },
-
-
-        shareLink:'',
-        mode:'edit',
-        skinPickerVisible:false,
-        mainClass:'default'
+            },
+            currentUser: {
+                objectId:'',
+                email:''
+            },
+            resume: {
+                name: '李弢',
+                jobTitle: '前端工程师',
+                birthday: '1991年',
+                gender: '男',
+                email: 'fxyf1991@gmail.com',
+                phone: '18551629909',
+                skills:[
+                    {
+                        name:'技能名称',
+                        description:'技能描述'
+                    },
+                    {
+                        name:'技能名称',
+                        description:'技能描述'
+                    },
+                    {
+                        name:'技能名称',
+                        description:'技能描述'
+                    },
+                    {
+                        name:'技能名称',
+                        description:'技能描述'
+                    }
+                ],
+                projects:[
+                    {
+                        name:'项目名称',
+                        link:'x.com',
+                        keywords:'关键字',
+                        description:'详细情况'
+                    },
+                    {
+                        name:'项目名称',
+                        link:'x.com',
+                        keywords:'关键字',
+                        description:'详细情况'
+                    },
+                    {
+                        name:'项目名称',
+                        link:'x.com',
+                        keywords:'关键字',
+                        description:'详细情况'
+                    },
+                    {
+                        name:'项目名称',
+                        link:'x.com',
+                        keywords:'关键字',
+                        description:'详细情况'
+                    }
+                ]
+            },
+            shareLink:'',
+            mode:'edit',
+            skinPickerVisible:false,
+            mainClass:'default',
+        }
     },
     methods: {
         onEdit(key, value) {
@@ -92,7 +101,7 @@ let app = new Vue({
         onClickSave() {
             let currentUser = AV.User.current();
             if (!currentUser) {
-                this.loginVisible = true
+                this.$router.push('/login')
             } else {
                 this.saveResume()
             }
@@ -166,26 +175,5 @@ let app = new Vue({
             return this.mode === 'preview' ? this.previewResume : this.resume
         }
     }
-})
-//获取当前用户
-let currentUser = AV.User.current()
-if(currentUser) {
-    app.currentUser = currentUser.toJSON()
-    app.shareLink = location.origin + location.pathname + '?user_id=' + app.currentUser.objectId
-    app.getResume(app.currentUser).then(resume => {
-        app.resume = resume
-    })
 }
-
-//获取预览用户
-let search = location.search
-let regex = /user_id=([^&]+)/
-let matches = search.match(regex)
-let userId
-if(matches){
-    userId = matches[1]
-    app.mode = 'preview'
-    app.getResume({objectId:userId}).then(resume => {
-        app.previewResume = resume
-    })
-}
+Vue.component('app', App)
