@@ -1,0 +1,16 @@
+.skinPicker {
+    position: fixed;
+    min-width: 300px;
+    min-height: 400px;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /*利用box-shadow制作背景半透明*/
+    box-shadow: 0 0 0 10000px rgba(0,0,0,0.5);
+    padding: 20px;
+}

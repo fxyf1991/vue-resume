@@ -66,16 +66,12 @@ let app = new Vue({
                 }
             ]
         },
-        signUp: {
-            email:'',
-            password:''
-        },
-        login:{
-            email:'',
-            password:''
-        },
+
+
         shareLink:'',
-        mode:'edit'
+        mode:'edit',
+        skinPickerVisible:false,
+        mainClass:'default'
     },
     methods: {
         onEdit(key, value) {
@@ -100,35 +96,6 @@ let app = new Vue({
             } else {
                 this.saveResume()
             }
-        },
-        onSignUp(e){
-            let user = new AV.User();
-            user.setUsername(this.signUp.email);
-            user.setPassword(this.signUp.password);
-            user.setEmail(this.signUp.email);
-            user.signUp().then( (user) => {
-                alert('注册成功')
-                user = user.toJSON()
-                this.currentUser.objectId = user.objectId
-                this.currentUser.email = user.email
-                this.signUpVisible = false
-            }, function (error) {
-                alert(error.rawMessage)
-            });
-            },
-        onLogin(e){
-            AV.User.logIn(this.login.email, this.login.password).then( (user) => {
-                user = user.toJSON()
-                this.currentUser.objectId = user.objectId
-                this.currentUser.email = user.email
-                this.loginVisible = false
-            }, function (error) {
-                if (error.code === 211){
-                    alert('邮箱不存在')
-                }else if(error.code === 210){
-                    alert('邮箱和密码不匹配')
-                }
-            });
         },
         hasLogin(){
             return !!this.currentUser.objectId
@@ -171,12 +138,26 @@ let app = new Vue({
         },
         print(){
             window.print()
+        },
+        onShare(){
+            if (this.hasLogin()){
+                this.shareVisible = true
+            }else {
+                alert('请先登录')
+            }
+        },
+        onLogin(user){
+            this.currentUser.objectId = user.objectId
+            this.currentUser.email = user.email
+            this.loginVisible = false
         }
     },
     watch:{
         'current.ObjectId': function (newValue, oldValue) {
             if(newValue){
-                this.getResume(this.currentUser)
+                this.getResume(this.currentUser).then((resume)=>{
+                    this.resume = resume
+                })
             }
         }
     },

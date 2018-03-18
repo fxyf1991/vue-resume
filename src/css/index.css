@@ -79,3 +79,8 @@ div[v-cloak]{
     top: 0;
     right: 0;
 }
+.exitPreview{
+    position: fixed;
+    top: 20px;
+    left: 20px;
+}
